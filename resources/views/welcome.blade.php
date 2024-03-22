@@ -1,4 +1,31 @@
-<!DOCTYPE html>
+@extends('layouts.app')
+
+{{-- Customize layout sections --}}
+
+@section('subtitle', 'Welcome')
+@section('content_header_title', 'Home')
+@section('content_header_subtitle', 'Welcome')
+
+{{-- Content body: main page content --}}
+
+@section('content_body')
+    <p>Welcome to this beautiful admin panel.</p>
+@stop
+
+{{-- Push exta CSS --}}
+
+@push('cc')
+    {{-- Add here extra stylesheets --}}
+    {{-- <link rel="stylesheet" href="/css/admin_custome.css"> --}}
+@endpush
+
+{{-- Push extra scripts --}}
+
+@push('js')
+    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!");</script>
+@endpush
+
+{{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -20,7 +47,7 @@
             @if (Route::has('login'))
                 <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                     @auth
-                        <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
+                         <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
                     @else
                         <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
 
@@ -130,4 +157,4 @@
             </div>
         </div>
     </body>
-</html>
+</html> --}}
