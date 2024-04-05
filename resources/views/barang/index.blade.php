@@ -1,40 +1,13 @@
-{{-- @extends('layouts.app') --}}
-
-{{-- Customize layout sections --}}
-
-{{-- @section('subtitle', 'Kategori')
-@section('content_header_title', 'Home')
-@section('content_header_subtitle', 'Kategori')
-
-@section('content')
-    <div class="container">
-        <div class="card">
-            <div class="card-header">Manage Kategori</div>
-            <div class="card-body">
-                {{ $dataTable->table() }}
-            </div>
-            <div class="kategoriCreate" style="padding-bottom: 10px; padding-left: 10px">
-                <a href="{{ url('/kategori/create')}}">
-                    <button type="submit" class="btn btn-primary">Tambah Kategori</button>
-                </a>
-            </div>
-        </div>
-    </div>
-@endsection
-
-@push('scripts')
-    {{ $dataTable->scripts() }}
-@endpush --}}
-
 @extends('layouts.template')
+
 @section('content')
-<div class="card card-outline card-primary">
+    <div class="card card-outline card-primary">
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <a href="{{url('kategori/create')}}" class="btn btn-sm btn-primary mt-1">Tambah</a>
+                <a href="{{url('barang/create')}}" class="btn btn-sm btn-primary mt-1">Tambah</a>
             </div>
-            </div>
+        </div>
         <div class="card-body">
             @if (session('success'))
                 <div class="alert alert-success">{{session('success')}}</div>
@@ -53,14 +26,14 @@
                                     <option value="{{$item->kategori_id}}">{{$item->kategori_nama}}</option>
                                 @endforeach
                             </select>
-                            <small class="form-text text-muted">Level Pengguna</small>
+                            <small class="form-text text-muted">Nama Kategori</small>
                         </div>
                     </div>
                 </div>
             </div>
-            <table class="table table-bordered table-striped table-hover table-sm" id="table_kategori">
+            <table class="table table-bordered table-striped table-hover table-sm" id="table_barang">
                 <thead>
-                    <tr><th>ID</th><th>Kode Kategori</th><th>Nama</th><th>Aksi</th></tr>
+                    <tr><th>ID</th><th>Kode Barang</th><th>Kategori Barang</th><th>Nama Barang</th><th>Harga Beli</th><th>Harga Jual</th><th>Aksi</th></tr>
                 </thead>
             </table>
         </div>
@@ -68,13 +41,14 @@
 @endsection
 @push('css')
 @endpush
+
 @push('js')
     <script>
         $(document).ready(function(){
-            var dataUser = $('#table_kategori').DataTable({
+            var dataBarang = $('#table_barang').DataTable({
                 serverSide: true, //serverside true jika ingin menggunakan server side processing
                 ajax: {
-                    "url": "{{ url('kategori/list') }}",
+                    "url": "{{ url('barang/list') }}",
                     "dataType": "json",
                     "type": "POST",
                     "data": function (d){
@@ -88,12 +62,27 @@
                         orderable: false,
                         searchable: false
                     },{
-                        data: "kategori_kode",
+                        data: "barang_kode",
                         classname: "",
                         orderable: true, //orderable true jika ingin kolom bisa diurutkan
                         searchable: true //searchable true jika ingin kolom bisa dicari
                     },{
-                        data: "kategori_nama",
+                        data: "kategori.kategori_nama",
+                        classname: "",
+                        orderable: true, //orderable true jika ingin kolom bisa diurutkan
+                        searchable: true //searchable true jika ingin kolom bisa dicari
+                    },{
+                        data: "barang_nama",
+                        classname: "",
+                        orderable: false, //orderable true jika ingin kolom bisa diurutkan
+                        searchable: false //searchable true jika ingin kolom bisa dicari
+                    },{
+                        data: "harga_beli",
+                        classname: "",
+                        orderable: false, //orderable true jika ingin kolom bisa diurutkan
+                        searchable: false //searchable true jika ingin kolom bisa dicari
+                    },{
+                        data: "harga_jual",
                         classname: "",
                         orderable: false, //orderable true jika ingin kolom bisa diurutkan
                         searchable: false //searchable true jika ingin kolom bisa dicari
@@ -106,7 +95,7 @@
                 ]
             });
             $('#kategori_id').on('change', function(){
-                dataUser.ajax.reload();
+                dataBarang.ajax.reload();
             });
         });
     </script>
