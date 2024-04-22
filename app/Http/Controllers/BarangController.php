@@ -23,7 +23,7 @@ class BarangController extends Controller
 
         $activeMenu = 'barang';
 
-        $kategori = m_user::all();
+        $kategori = m_kategori::all();
 
         return view('barang.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'kategori' => $kategori]);
     }

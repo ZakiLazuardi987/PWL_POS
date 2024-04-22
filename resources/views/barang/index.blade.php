@@ -75,7 +75,7 @@
                         data: "barang_nama",
                         classname: "",
                         orderable: false, //orderable true jika ingin kolom bisa diurutkan
-                        searchable: false //searchable true jika ingin kolom bisa dicari
+                        searchable: true //searchable true jika ingin kolom bisa dicari
                     },{
                         data: "harga_beli",
                         classname: "",
