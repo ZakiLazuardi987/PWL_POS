@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 class FileUploadController extends Controller
 {
-    public function fileUpload() {
+    public function fileUploadRename() {
         return view('file-upload');
     }
 
-    public function prosesFileUpload(Request $request) {
+    public function prosesFileUploadRename(Request $request) {
         // dump($request->berkas);
         // dump($request->file('file'));
         // return "Pemrosesan file upload di sini";
@@ -29,9 +29,9 @@ class FileUploadController extends Controller
         // } else {
         //     echo "Tidak ada berkas yang diupload";
         // }
-        $request->validate([
-            'berkas' => 'required|file|image|max:500',
-        ]);
+        // $request->validate([
+        //     'berkas' => 'required|file|image|max:500',
+        // ]);
         // $path = $request->berkas->store('uploads');
         // $path = $request->berkas->storeAs('uploads', 'berkas');
         // $namaFile = $request->berkas->getClientOriginalName();
@@ -39,14 +39,30 @@ class FileUploadController extends Controller
         // echo $request->berkas->getClientOriginalName() . " lolos validasi";
         // echo "Proses Upload Berhasil, File berada di: $path";
 
-        $extFile = $request->berkas->getClientOriginalName();
-        $namaFile = 'web-' . time() . "." . $extFile;
         // $path = $request->berkas->storeAs('uploads', $namaFile);
+        // $path = $request->berkas->storeAs('public', $namaFile);
+        
+        // $path = $request->berkas->move('gambar', $namaFile);
+        // $path = str_replace("\\","//", $path);
+        // echo "Variabel path berisi: $path <br>"; 
+
+        // $pathBaru = asset('gambar/' . $namaFile);
+        // echo "Proses Upload Berhasil, data disimpan pada: $path";
+        // echo "<br>";
+        // echo "Tampilkan link : <a href='$pathBaru'>$pathBaru</a>";
+
+        $request->validate([
+            'nama' => 'required',
+            'berkas' => 'required|file|image|max:500',
+        ]);
+
+        $extFile = $request->berkas->getClientOriginalExtension();
+        $namaFile = $request->nama . "." . $extFile;
         $path = $request->berkas->storeAs('public', $namaFile);
         
         $pathBaru = asset('storage/' . $namaFile);
-        echo "Proses Upload Berhasil, data disimpan pada: $path";
-        echo "<br>";
-        echo "Tampilkan link :<a href='$pathBaru'>$pathBaru</a>";
+        echo "Gambar berhasil di upload ke <a href='$pathBaru'>$namaFile</a>";
+        echo "<br><br>";
+        echo "<img src='$pathBaru' alt='Upload gambar'>";
     }
 }
